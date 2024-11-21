@@ -5,12 +5,10 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
+    "allowImportingTsExtensions": false,
+    "noEmit": false,
+    "outDir": "dist",
     "strict": true
   },
-  "include": ["type-factory.ts", "index.ts"],
-  "ts-node": {
-    "esm": true
-  }
+  "include": ["type-factory.ts", "index.ts"]
 }

@@ -10,9 +10,9 @@ import {
   ResolutionDetails,
   StandardResolutionReasons,
 } from "@openfeature/web-sdk";
-import { FlagType, typeFactory } from "./type-factory.ts";
+import { FlagType, typeFactory } from "./type-factory.js";
 
-export class SerliProvider implements Provider {
+export default class SerliProvider implements Provider {
   readonly metadata: ProviderMetadata = {
     name: SerliProvider.name,
   };
@@ -54,7 +54,6 @@ export class SerliProvider implements Provider {
     }
 
     this.flags = data;
-    console.log("flags recupérés dans init: ", this.flags);
   }
 
   onContextChange(
@@ -94,7 +93,7 @@ export class SerliProvider implements Provider {
         value: defaultValue,
         reason: StandardResolutionReasons.ERROR,
         errorCode: ErrorCode.TYPE_MISMATCH,
-        errorMessage: `Flag key ${flagKey} is not of type ${type}`,
+        errorMessage: `Flag ${flagKey} is not of type ${type}`,
       } as ResolutionDetails<T>;
     }
     if (typeof value !== undefined && typeof value !== type) {
@@ -102,7 +101,7 @@ export class SerliProvider implements Provider {
         value: defaultValue as T,
         reason: StandardResolutionReasons.ERROR,
         errorCode: ErrorCode.FLAG_NOT_FOUND,
-        errorMessage: `Flag key ${flagKey} not found`,
+        errorMessage: `Flag ${flagKey} not found`,
       } as ResolutionDetails<T>;
     } else {
       return {
@@ -124,29 +123,3 @@ export class SerliProvider implements Provider {
     return undefined;
   }
 }
-
-// let provider = await SerliProvider.create("api_key_2");
-
-// console.log("response: ", provider.resolveBooleanEvaluation("my-flag"));
-
-// console.log(
-//   "response 2: ",
-//   provider.resolveStringEvaluation("new-1", "default value"),
-// );
-
-// console.log("response 3: ", provider.resolveNumberEvaluation("new-flag-2", 0));
-
-// console.log(
-//   "response 4: ",
-//   provider.resolveObjectEvaluation("json-flag", { version: 4 }),
-// );
-
-// console.log(
-//   "non existant flag (return default value of 0): ",
-//   provider.resolveNumberEvaluation("non-existant-flag", 0),
-// );
-
-// console.log(
-//   "type mismatch flag: ",
-//   provider.resolveNumberEvaluation("my-flag", 0),
-// );
