@@ -6,7 +6,9 @@
     "url": "https://github.com/Dylan-Serli/ff-serli-openfeature-provider-client"
   },
   "main": "dist/index.js",
-  "exports": ["./dist"],
+  "exports": [
+    "./dist"
+  ],
   "type": "module",
   "module": "es2022",
   "outputFormat": "esmodule",
