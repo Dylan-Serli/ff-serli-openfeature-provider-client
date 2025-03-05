@@ -59,8 +59,17 @@ export default class SerliProvider implements Provider {
   onContextChange(
     oldContext: EvaluationContext,
     newContext: EvaluationContext,
-  ) {
+  ): Promise<void> {
     this.events.emit(ProviderEvents.Stale, { message: "Context Changed" });
+    return new Promise<void>((resolve, reject) => {
+      this.init()
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
   }
 
   resolveBooleanEvaluation(flagKey: string) {

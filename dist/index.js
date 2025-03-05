@@ -5,7 +5,7 @@ export default class SerliProvider {
         name: SerliProvider.name,
     };
     runsOn = "client";
-    API_URL = "http://localhost:3328/api/v1/flags/";
+    API_URL = "http://localhost:3333/api/flags/";
     api_key = "";
     flags = {};
     events = new OpenFeatureEventEmitter();
@@ -37,6 +37,15 @@ export default class SerliProvider {
     }
     onContextChange(oldContext, newContext) {
         this.events.emit(ProviderEvents.Stale, { message: "Context Changed" });
+        return new Promise((resolve, reject) => {
+            this.init()
+                .then(() => {
+                resolve();
+            })
+                .catch((error) => {
+                reject(error);
+            });
+        });
     }
     resolveBooleanEvaluation(flagKey) {
         return this.evaluate(flagKey, "boolean", false);
