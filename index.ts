@@ -97,7 +97,7 @@ export default class SerliProvider implements Provider {
     flagKey: string,
     type: FlagType,
     defaultValue: T,
-  ) {
+  ): ResolutionDetails<T> {
     const value = typeFactory(this.getValue(flagKey), type);
     if (typeof value !== "undefined" && typeof value !== type) {
       return {
@@ -105,7 +105,7 @@ export default class SerliProvider implements Provider {
         reason: StandardResolutionReasons.ERROR,
         errorCode: ErrorCode.TYPE_MISMATCH,
         errorMessage: `Flag ${flagKey} is not of type ${type}`,
-      } as ResolutionDetails<T>;
+      };
     }
     if (typeof value !== undefined && typeof value !== type) {
       return {
@@ -113,12 +113,12 @@ export default class SerliProvider implements Provider {
         reason: StandardResolutionReasons.ERROR,
         errorCode: ErrorCode.FLAG_NOT_FOUND,
         errorMessage: `Flag ${flagKey} not found`,
-      } as ResolutionDetails<T>;
+      };
     } else {
       return {
         value: value as T,
         reason: StandardResolutionReasons.CACHED,
-      } as ResolutionDetails<T>;
+      };
     }
   }
 

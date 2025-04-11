@@ -1,3 +1,4 @@
+//see https://openfeature.dev/docs/reference/concepts/provider
 import { ErrorCode, OpenFeatureEventEmitter, ProviderEvents, StandardResolutionReasons, } from "@openfeature/web-sdk";
 import { typeFactory } from "./type-factory.js";
 export default class SerliProvider {
