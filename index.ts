@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import {
   ErrorCode,
   EvaluationContext,
@@ -18,7 +20,8 @@ export default class SerliProvider implements Provider {
   };
 
   readonly runsOn = "client";
-  private readonly API_URL = "http://localhost:3333/api/flags/";
+  private readonly API_URL =
+    process.env.API_URL || "http://localhost:3333/api/flags/";
   private api_key = "";
   private flags: { [index: string]: any } = {};
 
