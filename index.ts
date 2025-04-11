@@ -1,3 +1,4 @@
+//see https://openfeature.dev/docs/reference/concepts/provider
 import {
   ErrorCode,
   EvaluationContext,
