@@ -1,5 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
 import {
   ErrorCode,
   EvaluationContext,
@@ -20,19 +18,19 @@ export default class SerliProvider implements Provider {
   };
 
   readonly runsOn = "client";
-  private readonly API_URL =
-    process.env.API_URL || "http://localhost:3333/api/flags/";
+  private readonly API_URL: string;
   private api_key = "";
   private flags: { [index: string]: any } = {};
 
   events = new OpenFeatureEventEmitter();
 
-  private constructor(api_key: string) {
+  private constructor(api_key: string, api_url?: string) {
     this.api_key = api_key;
+    this.API_URL = api_url || "http://localhost:3333/api/flags/";
   }
 
-  public static async create(api_key: string) {
-    let provider = new SerliProvider(api_key);
+  public static async create(api_key: string, api_url?: string) {
+    let provider = new SerliProvider(api_key, api_url);
     await provider.init();
     return provider;
   }
