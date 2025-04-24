@@ -3,7 +3,8 @@ import SerliProvider from "./dist/index.js";
 
 OpenFeature.setProvider(
   await SerliProvider.create(
-    "94470a2be2c64036b3dcd9083c35a7007879547b0ba040e6948bb27228a7541c",
+    "b7f52e9092f744299fd5bdae115faeb11abbf819fd8e40d0a1cb72057a937b70",
+    "d2af1c3b-d96f-44d5-a676-a23b064f6d68",
   ),
 );
 const client = OpenFeature.getClient();
@@ -11,8 +12,8 @@ const client = OpenFeature.getClient();
 console.log(client.getBooleanValue("bu", false));
 console.log(client.getBooleanDetails("bu", false));
 
-console.log(client.getStringValue("Simpson", "default resolved value"));
-console.log(client.getStringDetails("Simpson", "default resolved value"));
+console.log(client.getStringValue("new-flag-3", "default resolved value"));
+console.log(client.getStringDetails("new-flag-3", "default resolved value"));
 
 console.log(client.getNumberValue("number", 0));
 console.log(client.getNumberDetails("number", 0));

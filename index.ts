@@ -21,24 +21,30 @@ export default class SerliProvider implements Provider {
   readonly runsOn = "client";
   private readonly API_URL: string;
   private api_key = "";
+  private project_id = "";
   private flags: { [index: string]: any } = {};
 
   events = new OpenFeatureEventEmitter();
 
-  private constructor(api_key: string, api_url?: string) {
+  private constructor(api_key: string, project_id: string, api_url?: string) {
     this.api_key = api_key;
-    this.API_URL = api_url || "http://localhost:3333/api/flags/";
+    this.project_id = project_id;
+    this.API_URL = api_url || "http://localhost:3333/api/flags";
   }
 
-  public static async create(api_key: string, api_url?: string) {
-    let provider = new SerliProvider(api_key, api_url);
+  public static async create(
+    api_key: string,
+    project_id: string,
+    api_url?: string,
+  ) {
+    let provider = new SerliProvider(api_key, project_id, api_url);
     await provider.init();
     return provider;
   }
 
   async init() {
     //fetch all flags at startup
-    const response = await fetch(this.API_URL, {
+    const response = await fetch(`${this.API_URL}/${this.project_id}`, {
       method: "GET",
       headers: {
         Authorization: `${this.api_key}`,
